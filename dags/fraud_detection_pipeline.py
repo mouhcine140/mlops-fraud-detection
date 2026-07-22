@@ -1,12 +1,11 @@
 """
-DAG Airflow : ingest -> validate -> build_features -> train -> quality gate
--> drift check.
+DAG Airflow : ingest -> validate -> build_features -> train -> quality
+gate -> drift check.
 
-TaskFlow API (@dag / @task). Chaque tâche appelle une fonction de src/ - la
-logique métier reste testable indépendamment d'Airflow (voir tests/).
-
-Tourne dans le conteneur Airflow de docker-compose.yml (Dockerfile.airflow,
-qui installe requirements.txt en plus de l'image Airflow officielle).
+J'utilise TaskFlow API (@dag/@task) plutôt que les opérateurs classiques,
+plus lisible et Airflow gère le passage de données entre tâches tout seul.
+Chaque tâche appelle une fonction de src/, donc la logique métier se teste
+sans avoir besoin qu'Airflow tourne.
 """
 from __future__ import annotations
 
