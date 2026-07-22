@@ -1,6 +1,9 @@
 """
-Charge le CSV brut (data/raw/) dans `raw_transactions`. Batch full-load pour
-l'instant ; à remplacer par du CDC / consumer Kafka en prod si besoin.
+Charge le CSV dans raw_transactions.
+
+Je fais un full-load (la table est remplacée à chaque run) - simple, et ça
+suffit tant qu'on parle d'un seul fichier ou d'un petit batch. Avec un vrai
+flux continu à fort volume, il faudrait du CDC ou un consumer Kafka.
 """
 from __future__ import annotations
 
