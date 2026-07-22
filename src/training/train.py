@@ -1,9 +1,9 @@
 """
-Entraînement du modèle, tracking MLflow (params, métriques, artifacts) et
-enregistrement dans le model registry.
+Trains XGBoost + logs everything to MLflow (params, metrics, artifacts).
 
-Déséquilibre de classes géré via scale_pos_weight plutôt que du SMOTE - plus
-simple et suffisant pour ~1.5% de fraude.
+The real challenge here is class imbalance. I went with scale_pos_weight
+since it's simple and does the job at this fraud rate. Might switch to
+something fancier if the dataset grows or fraud gets rarer.
 """
 from __future__ import annotations
 
