@@ -142,19 +142,24 @@ Remplacer `data/raw/fraud_transactions_sample.csv` par un CSV respectant le mêm
 
 ## Détails par composant
 
-**Génération des données** (`src/ingestion/generate_sample_data.py`) — Dataset synthétique reproductible (seed fixe) avec des patterns de fraude réalistes : montants plus élevés, transactions nocturnes, pays étrangers non habituels pour l'utilisateur. Permet de faire tourner tout le repo sans dépendance à un compte Kaggle.
+## Comment c'est construit
 
-**Validation qualité** (`src/validation/data_quality.py`) — Une dizaine de règles (schéma, unicité de clé, valeurs nulles, cohérence des montants, plage du taux de fraude, catégories connues), classées `critical` / `warning`. Un échec critique bloque la suite du pipeline (`raise_on_failure=True`), un warning est loggé mais n'arrête rien.
+La génération de données synthétiques (`generate_sample_data.py`) simule des patterns de fraude assez marqués (montants élevés, transactions de nuit, pays inhabituels) avec une seed fixe, pour que tout le monde puisse
+reproduire le même run sans compte Kaggle.
 
-**Feature engineering** (`src/features/`) — Deux étapes : agrégations "historique utilisateur/carte" en SQL (window functions, `aggregations_sqlite.sql` / `aggregations_postgres.sql` selon le dialecte détecté), puis features dérivées en pandas (temporelles, ratios, encodage one-hot).
+Avant de passer à la suite, une dizaine de règles de qualité (`data_quality.py`) vérifient schéma, doublons, nulls, plage de montants, taux de fraude plausible. Les critiques bloquent le pipeline, les warnings
+sont juste loggés.
 
-**Entraînement** (`src/training/train.py`) — XGBoost (fallback RandomForest si non disponible) avec `scale_pos_weight` pour gérer le déséquilibre de classes. Seuil de décision optimisé sur le F1-score plutôt que le défaut 0.5. Chaque run loggue params/métriques/artifacts dans MLflow et tente un enregistrement dans le model registry.
+Le feature engineering se fait en deux temps : les agrégations d'historique utilisateur/carte tournent en SQL (window functions, variante SQLite ou Postgres selon le dialecte), puis pandas prend le relais pour les features
+dérivées.
 
-**Serving** (`src/serving/api.py`) — API FastAPI qui recharge le pipeline de feature engineering pour une transaction unique reçue en ligne, applique le modèle chargé depuis `models/model.joblib`, et retourne la probabilité de fraude + décision selon le seuil optimisé à l'entraînement.
+XGBoost pour l'entraînement, avec `scale_pos_weight` pour le déséquilibre de classes et un seuil optimisé sur le F1 plutôt que 0.5. Chaque run est tracké dans MLflow.
 
-**Monitoring** (`src/monitoring/drift.py`) — Calcule le PSI (Population Stability Index) par feature entre un jeu de référence et un batch courant. PSI ≥ 0.25 sur une feature déclenche une recommandation de ré-entraînement (`retrain_recommended` dans le rapport).
+L'API recharge le modèle depuis `model.joblib` et applique le même feature engineering à une transaction reçue en ligne. Le monitoring de drift calcule un PSI par feature entre référence et batch courant. Et le DAG Airflow enchaîne tout ça, avec une quality gate qui peut rejeter un modèle sous les seuils métier.
 
-**Orchestration** (`dags/fraud_detection_pipeline.py`) — DAG Airflow TaskFlow API : ingest → validate → build_features → train → quality gate (rejette un modèle sous les seuils métier de précision/recall) → drift check.
+
+
+
 
 ## Résultats
 
