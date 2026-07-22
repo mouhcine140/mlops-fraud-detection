@@ -20,8 +20,8 @@ class TransactionRequest(BaseModel):
     device_type: str
     transaction_type: str
 
-    # Contexte optionnel calculé côté client / cache (à défaut, valeurs
-    # neutres appliquées -> voir src/serving/api.py::_apply_online_features)
+    # Historique utilisateur optionnel : si absent, l'API applique des valeurs
+    # neutres (voir _apply_online_features).
     user_txn_count_before: float | None = None
     user_avg_amount_before: float | None = None
     card_distinct_countries_so_far: float | None = None
