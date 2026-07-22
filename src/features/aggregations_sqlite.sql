@@ -1,5 +1,4 @@
--- Agrégations comportementales (historique utilisateur / carte) via window
--- functions. Variante SQLite - voir aggregations_postgres.sql pour Postgres.
+-- Agrégations comportementales (historique utilisateur / carte) via window functions. Version SQLite.
 
 SELECT
     t.transaction_id,
@@ -26,8 +25,9 @@ SELECT
     ) AS user_avg_amount_before,
 
     -- SQLite n'autorise pas COUNT(DISTINCT ...) en window function, d'où la
-    -- sous-requête corrélée à la place d'un OVER(). Sur Postgres, ça reste
-    -- une vraie window function (voir aggregations_postgres.sql).
+    -- sous-requête corrélée. Postgres n'a pas cette limite (voir
+    -- aggregations_postgres.sql).
+
     (
         SELECT COUNT(DISTINCT t2.merchant_country)
         FROM raw_transactions t2
