@@ -1,9 +1,5 @@
 # Exemple de run
 
-Sorties réelles d'une exécution complète du pipeline (`bash scripts/run_pipeline_local.sh`) sur le dataset synthétique généré par défaut (20 000 transactions, 1.5% de fraude). Committées ici à titre d'exemple, contrairement aux données/modèles/rapports générés à chaque run (voir `.gitignore`).
+J'ai laissé les sorties d'un vrai run ici (pipeline complet sur le dataset par défaut) pour que ce soit vérifiable sans avoir à me faire confiance sur parole : `data_quality_report.json` (14 checks, tous passés),`training_metrics.json` (les métriques du tableau du README principal), et `drift_report.json` (voir la note dans `drift.py` sur pourquoi les features cumulatives ressortent "critiques" avec le split par défaut).
 
-- `data_quality_report.json` — sortie de `src/validation/data_quality.py` : 14 checks, tous passés
-- `training_metrics.json` — métriques du run d'entraînement (ROC-AUC, PR-AUC, precision/recall au seuil optimisé)
-- `drift_report.json` — sortie de `src/monitoring/drift.py`, comparant la première et la seconde moitié du dataset (les features cumulatives comme `user_txn_count_before` montrent naturellement du drift sur un split temporel, c'est le comportement attendu)
-
-Pour régénérer ces fichiers avec tes propres données : `bash scripts/run_pipeline_local.sh`.
+Normalement ces fichiers sont générés à chaque run et pas commités (voir `.gitignore`), mais je garde ceux-là en dur. `bash scripts/run_pipeline_local.sh` les régénère.
