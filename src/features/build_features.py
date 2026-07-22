@@ -1,11 +1,8 @@
 """
-Feature engineering en deux étapes :
-1. SQL - agrégations historique user/carte via window functions
-   (aggregations_sqlite.sql / aggregations_postgres.sql)
-2. pandas - features dérivées (temporelles, ratios, encodage catégoriel)
-
-Résultat écrit dans la table `features`, utilisée par training/train.py et
-monitoring/drift.py.
+Deux étapes : le SQL fait les agrégations lourdes (historique
+utilisateur/carte), pandas fait le reste. J'aurais pu tout faire en pandas
+mais charger toute la table pour recalculer des window functions en mémoire
+aurait été plus lent qu'en laissant le moteur SQL le faire.
 """
 from __future__ import annotations
 
