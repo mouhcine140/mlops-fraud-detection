@@ -1,8 +1,10 @@
 """
-Data quality checks maison, façon Great Expectations : règles déclaratives,
-résultat structuré par check, rapport JSON + décision pass/fail globale.
-Pas de dépendance externe pour une dizaine de règles (à réévaluer si le
-volume de règles grossit - voir README).
+Une dizaine de règles de qualité des données, chacune classée critical
+ou warning.
+
+Je me suis inspiré de Great Expectations pour la structure sans installer
+la lib - à ce volume de règles ça n'en valait pas la peine. Si un jour il y
+en a 50, ça vaudrait le coup de basculer dessus.
 """
 from __future__ import annotations
 
