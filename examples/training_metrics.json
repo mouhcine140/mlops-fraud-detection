@@ -1,0 +1,13 @@
+{
+  "run_id": "6bf0f1f4926540ef8c3b810a2351b6fd",
+  "model_type": "XGBClassifier (fallback RandomForestClassifier si xgboost indisponible)",
+  "dataset": "20000 transactions synthetiques, 1.5% de fraude",
+  "metrics": {
+    "roc_auc": 0.9964974619289341,
+    "pr_auc": 0.8717525880861694,
+    "precision": 0.8305084745762712,
+    "recall": 0.8166666666666667,
+    "f1_at_best_threshold": 0.8235294117642059,
+    "best_threshold": 0.5933576226234436
+  }
+}

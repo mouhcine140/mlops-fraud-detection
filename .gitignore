@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Data (generated locally by src/ingestion/generate_sample_data.py)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+*.db
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Airflow
+logs/
+airflow.cfg
+airflow.db
+standalone_admin_password.txt
+
+# Models
+models/*
+!models/.gitkeep
+
+# Reports
+reports/*.html
+reports/*.json
+
+# Env
+.env
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

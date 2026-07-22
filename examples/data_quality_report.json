@@ -1,0 +1,93 @@
+{
+  "run_at": "2026-07-13T20:17:26.051490+00:00",
+  "is_valid": true,
+  "n_checks": 14,
+  "n_passed": 14,
+  "n_failed": 0,
+  "checks": [
+    {
+      "name": "schema_required_columns",
+      "passed": true,
+      "severity": "critical",
+      "details": "Toutes les colonnes attendues sont pr\u00e9sentes"
+    },
+    {
+      "name": "dataset_not_empty",
+      "passed": true,
+      "severity": "critical",
+      "details": "20000 lignes"
+    },
+    {
+      "name": "transaction_id_unique",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 doublons de transaction_id"
+    },
+    {
+      "name": "no_nulls__transaction_id",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 valeurs nulles"
+    },
+    {
+      "name": "no_nulls__user_id",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 valeurs nulles"
+    },
+    {
+      "name": "no_nulls__amount",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 valeurs nulles"
+    },
+    {
+      "name": "no_nulls__timestamp",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 valeurs nulles"
+    },
+    {
+      "name": "no_nulls__is_fraud",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 valeurs nulles"
+    },
+    {
+      "name": "amount_strictly_positive",
+      "passed": true,
+      "severity": "critical",
+      "details": "0 transactions avec montant <= 0"
+    },
+    {
+      "name": "amount_below_extreme_threshold",
+      "passed": true,
+      "severity": "warning",
+      "details": "0 transactions au-dessus de 50000"
+    },
+    {
+      "name": "is_fraud_binary",
+      "passed": true,
+      "severity": "critical",
+      "details": "Valeurs uniques trouv\u00e9es : [0, 1]"
+    },
+    {
+      "name": "fraud_rate_within_sane_bounds",
+      "passed": true,
+      "severity": "warning",
+      "details": "Taux de fraude observ\u00e9 : 1.5000%"
+    },
+    {
+      "name": "known_categories__device_type",
+      "passed": true,
+      "severity": "warning",
+      "details": "OK"
+    },
+    {
+      "name": "known_categories__transaction_type",
+      "passed": true,
+      "severity": "warning",
+      "details": "OK"
+    }
+  ]
+}

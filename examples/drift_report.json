@@ -1,0 +1,26 @@
+{
+  "run_at": "2026-07-13T20:17:57.022453+00:00",
+  "feature_scores": {
+    "amount": 0.001,
+    "log_amount": 0.001,
+    "amount_to_user_avg_ratio": 0.1973,
+    "user_txn_count_before": 3.8063,
+    "user_avg_amount_before": 0.4962,
+    "card_distinct_countries_so_far": 1.2092,
+    "seconds_since_last_user_txn": 0.7406
+  },
+  "drifted_features": [
+    "amount_to_user_avg_ratio",
+    "user_txn_count_before",
+    "user_avg_amount_before",
+    "card_distinct_countries_so_far",
+    "seconds_since_last_user_txn"
+  ],
+  "critical_features": [
+    "user_txn_count_before",
+    "user_avg_amount_before",
+    "card_distinct_countries_so_far",
+    "seconds_since_last_user_txn"
+  ],
+  "retrain_recommended": true
+}

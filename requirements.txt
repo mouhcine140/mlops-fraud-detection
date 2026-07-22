@@ -1,0 +1,33 @@
+# --- Core ---
+pandas==2.3.3
+numpy==2.2.6
+scikit-learn==1.7.2
+xgboost==3.2.0
+scipy==1.15.3
+
+# --- Database ---
+SQLAlchemy==2.0.51
+psycopg2-binary==2.9.12
+
+# --- MLflow (experiment tracking + model registry) ---
+mlflow==3.14.0
+
+# --- Serving ---
+fastapi==0.139.0
+uvicorn[standard]==0.51.0
+pydantic==2.13.4
+
+# --- Testing ---
+pytest==9.1.1
+httpx==0.28.1
+
+# --- Utils ---
+python-dotenv==1.2.2
+joblib==1.5.3
+matplotlib==3.10.9
+
+# NOTE: Apache Airflow is NOT installed here on purpose. Airflow pins very
+# specific transitive dependency versions and should live in its own
+# environment/image (see Dockerfile.airflow + docker-compose.yml), otherwise
+# it will conflict with the ML stack above. The DAG in dags/ only imports
+# functions from src/, which get installed into the Airflow image separately.

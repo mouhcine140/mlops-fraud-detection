@@ -1,0 +1,7 @@
+# Image Airflow + dépendances du repo, pour que les tâches du DAG puissent
+# importer src/. Séparée du Dockerfile principal pour éviter les conflits
+# de versions entre Airflow et la stack ML.
+FROM apache/airflow:2.9.2-python3.11
+
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
