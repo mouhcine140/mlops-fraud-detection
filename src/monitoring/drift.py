@@ -1,13 +1,9 @@
 """
-Détection de drift : Population Stability Index (PSI) entre les données
-d'entraînement (référence) et un batch de production (actuel). Implémentation
-maison plutôt qu'Evidently, pour éviter une dépendance lourde sur un besoin
-simple (voir README pour l'alternative si le projet grossit).
+PSI par feature, maison (pas Evidently, overkill pour ce besoin).
 
-Lecture du PSI par feature :
-  < 0.10   pas de drift significatif
-  0.10-0.25 drift modéré, à surveiller
-  >= 0.25   drift important, ré-entraînement à envisager
+À savoir : le split référence/actuel par défaut coupe juste le dataset en
+deux dans le temps, donc les features cumulatives ressortent "critiques"
+sans que ce soit un vrai drift.
 """
 from __future__ import annotations
 
