@@ -1,8 +1,7 @@
-# MLOps Fraud Detection
+# Détection de fraude bancaire (MLOps)
 
-Pipeline end-to-end de détection de transactions bancaires frauduleuses : ingestion, validation qualité des données, feature engineering (SQL + pandas), entraînement avec tracking MLflow, serving via API REST, et monitoring de drift — le tout orchestré par Airflow.
-
-Ce projet fait partie d'un portfolio de 5 projets data engineering. L'accent est mis ici sur **l'ingénierie autour du modèle** (pipeline, orchestration, qualité de données, reproductibilité, monitoring) plutôt que sur l'optimisation fine de l'algorithme de ML.
+Pipeline de bout en bout : ingestion, contrôle qualité, feature engineering SQL + pandas, entraînement XGBoost avec tracking MLflow, une API pour servir les prédictions, et un monitoring de drift, orchestré par Airflow.
+Le but ici n'était pas de sortir le meilleur modèle possible, mais de construire tout ce qu'il y a autour : un pipeline qui tourne de bout en bout, testé, reproductible, avec un vrai monitoring derrière.
 
 ## Sommaire
 
@@ -18,9 +17,8 @@ Ce projet fait partie d'un portfolio de 5 projets data engineering. L'accent est
 
 ## Contexte
 
-Une banque veut détecter les transactions frauduleuses en quasi-temps réel. Les fraudeurs représentent une très faible proportion des transactions (~1.5% dans ce jeu de données), ce qui pose des contraintes spécifiques : déséquilibre de classes fort, nécessité de features "comportementales" (historique utilisateur), et un besoin de ré-entraînement régulier car les patterns de fraude évoluent (drift).
-
-Le rôle du data engineer ici : construire un pipeline fiable, testé et reproductible qui alimente le modèle en données propres, automatise l'entraînement et la mise à jour, expose les prédictions via une API, et alerte quand les données de production s'écartent de celles utilisées à l'entraînement.
+Je voulais un projet qui couvre tout le cycle MLOps, pas juste "entraîner un modèle" : ingestion, qualité de données, features réutilisables entre batch et serving, tracking d'expériences, une API, et un système qui
+prévient quand les données de prod s'écartent de l'entraînement. La fraude bancaire s'y prête bien : peu de cas positifs (~1.5%), et des patterns qui évoluent dans le temps donc ça force à penser au ré-entraînement.
 
 ## Architecture
 
