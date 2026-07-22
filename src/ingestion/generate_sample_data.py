@@ -1,11 +1,11 @@
 """
-Génère un dataset synthétique de transactions (au lieu du dataset Kaggle
-IEEE-CIS / Credit Card Fraud, pour éviter la dépendance à un compte Kaggle
-et un CSV de 150+ Mo dans le repo). Déséquilibre de classes ~1.5%, patterns
-de fraude cohérents (montants élevés, heures atypiques, pays étrangers).
+Génère des transactions synthétiques (fraude ~1.5%, patterns pas trop
+subtils : montants élevés, nuit, pays étranger).
 
-Pour utiliser le vrai dataset Kaggle : remplacer le fichier sous data/raw/
-par le CSV téléchargé (mêmes colonnes, voir README).
+Le vrai dataset Kaggle demande un compte et fait 150+ Mo, pas pratique à
+committer. Limite honnête : ces patterns sont plus faciles à repérer que de
+la vraie fraude, donc les métriques du modèle sont sûrement optimistes par
+rapport à un cas réel.
 """
 from __future__ import annotations
 
