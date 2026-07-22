@@ -1,8 +1,12 @@
 """
-API de serving. Charge le modèle depuis models/model.joblib (produit par
-training/train.py) plutôt que d'interroger MLflow à chaque appel, pour une
-latence d'inférence prévisible.
+API de scoring. Charge model.joblib au démarrage plutôt que MLflow à
+chaque appel (latence).
+
+Limite connue : sans feature store, les features d'historique utilisateur
+doivent être passées par l'appelant. En vrai il faudrait un Redis ou un
+Feast derrière - hors scope ici, c'est juste pour montrer le endpoint.
 """
+
 from __future__ import annotations
 
 import logging
@@ -63,11 +67,10 @@ def load_model_bundle(force: bool = False) -> dict:
 
 
 def _apply_online_features(payload: TransactionRequest) -> pd.DataFrame:
-    """Reproduit le feature engineering batch (src/features/build_features.py)
-    pour une transaction unique reçue en ligne. Les features d'historique
-    (comportement utilisateur) sont fournies par l'appelant si disponibles
-    (typiquement lues depuis un feature store / cache Redis en prod) ; à
-    défaut, on retombe sur des valeurs neutres plutôt que d'échouer."""
+    """Recalcule les mêmes features que le batch, mais pour une transaction
+    seule. Si l'appelant ne fournit pas l'historique du user (compteurs,
+    moyenne), on met des valeurs neutres au lieu de planter la requête -
+    pas idéal, mais pas de feature store pour l'instant."""
     row = {
         "transaction_id": payload.transaction_id,
         "user_id": payload.user_id,
