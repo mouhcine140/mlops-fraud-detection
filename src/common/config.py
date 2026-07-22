@@ -28,8 +28,8 @@ class Settings:
     raw_data_path: Path = PROJECT_ROOT / "data" / "raw" / "fraud_transactions_sample.csv"
     processed_dir: Path = PROJECT_ROOT / "data" / "processed"
 
-    # sqlite plutôt qu'un dossier mlruns/ brut : MLflow 3.x désactive le
-    # file store par défaut.
+    # MLflow 3.x a désactivé le file store par défaut, donc je pointe vers un
+    # fichier sqlite pour mlruns au lieu d'un dossier brut.
     mlflow_tracking_uri: str = os.getenv(
         "MLFLOW_TRACKING_URI", f"sqlite:///{PROJECT_ROOT / 'mlruns.db'}"
     )
